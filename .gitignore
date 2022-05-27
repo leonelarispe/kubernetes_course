@@ -1,8 +1,18 @@
 ### Example user template template
 ### Example user template
-
+# * Local Ignore
 # IntelliJ project files
 .idea
 *.iml
 out
 gen
+
+# * External Ignore
+node_modules/
+.DS_Store
+.certs/
+.idea/
+.settings/
+.build/
+logs/access.log
+*.iml
