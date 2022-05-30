@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: node-config
+  namespace: elvis-arispe
+data:
+  mongoHost: "mongo-service.elvis-arispe.svc.cluster.local"
+  mongoDB: "node"

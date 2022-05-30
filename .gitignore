@@ -6,7 +6,8 @@
 *.iml
 out
 gen
-
+.env
+.env.*
 # * External Ignore
 node_modules/
 .DS_Store
