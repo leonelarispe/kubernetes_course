@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: node
+  name: node
+  namespace: elvis-arispe
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+        - name: node
+          image: docker.io/jgenso/node-demo:0.0.1
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+                path: /newcommand
+                port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+                path: /newcommand
+                port: 3000
+            initialDelaySeconds: 1
+            periodSeconds: 10
+          env:
+           - name: MONGO_USERNAME
+             valueFrom:
+               secretKeyRef:
+                 name: db-credentials
+                 key: MONGO_INITDB_ROOT_USERNAME
+           - name: MONGO_PASSWORD
+             valueFrom:
+               secretKeyRef:
+                 name: db-credentials
+                 key: MONGO_INITDB_ROOT_PASSWORD
+           - name: MONGO_HOST
+             valueFrom:
+               configMapKeyRef:
+                 name: node-config
+                 key: mongoHost
+           - name: MONGO_DB
+             valueFrom:
+               configMapKeyRef:
+                 name: node-config
+                 key: mongoDB
